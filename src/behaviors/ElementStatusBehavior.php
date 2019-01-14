@@ -19,9 +19,9 @@ class ElementStatusBehavior extends Behavior
     // =========================================================================
 
     /**
-     * @var string|null
+     * @var string
      */
-    public $statusBeforeSave;
+    public $statusBeforeSave = '';
 
     /**
      * @var bool
@@ -52,7 +52,7 @@ class ElementStatusBehavior extends Behavior
         /** @var Element $element */
         $element = $this->owner;
 
-        if ($this->statusBeforeSave === null || $this->statusBeforeSave != $element->getStatus()) {
+        if ($this->statusBeforeSave != $element->getStatus()) {
             $this->statusChanged = true;
 
             // Trigger a 'statusChanged' event

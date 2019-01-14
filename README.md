@@ -41,11 +41,11 @@ Triggered whenever an element’s status is changed. The element will have a `st
         $newStatus = $element->status;
     }); 
 
-### `ElementStatusEvents::EVENT_STATUSES_CHANGED`
+### `ElementStatusEvents::EVENT_ELEMENT_STATUSES_CHANGED`
 
 Triggered after the response has been prepared if one or more element statused have changed. The element will have a `statusBeforeSave` parameter available to it.
 
-    Event::on(ElementStatusEvents::class, ElementStatusEvents::EVENT_STATUSES_CHANGED, 
+    Event::on(ElementStatusEvents::class, ElementStatusEvents::EVENT_ELEMENT_STATUSES_CHANGED, 
         function(ElementStatusesChangedEvent $event) {
             foreach ($event->elements as $element) {
                 /** @var Element $element */
