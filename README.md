@@ -1,5 +1,3 @@
-<p align="center"><img width="200" src="src/icon.svg"></p>
-
 # Element Status Events Module for Craft CMS 3
 
 The Element Status Events module provides events that are triggered whenever an element’s status changes. It is intended to be used a helper module for other Craft modules and plugins.
