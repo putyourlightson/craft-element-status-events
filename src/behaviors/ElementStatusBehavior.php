@@ -39,9 +39,13 @@ class ElementStatusBehavior extends Behavior
         /** @var Element $element */
         $element = $this->owner;
 
-        $existingElement = Craft::$app->getElements()->getElementById($element->id, get_class($element));
+        $originalElement = Craft::$app->getElements()->getElementById(
+            $element->id,
+            get_class($element),
+            $element->siteId
+        );
 
-        $this->statusBeforeSave = $existingElement === null ?: $existingElement->getStatus();
+        $this->statusBeforeSave = $originalElement === null ?: $originalElement->getStatus();
     }
 
     /**

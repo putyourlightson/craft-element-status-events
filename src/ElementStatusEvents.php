@@ -7,7 +7,7 @@ use craft\events\ElementEvent;
 use craft\services\Elements;
 use craft\web\Response;
 use putyourlightson\elementstatusevents\behaviors\ElementStatusBehavior;
-use putyourlightson\elementstatusevents\events\ElementStatusesChangedEvent;
+use putyourlightson\elementstatusevents\events\ElementStatusesEvent;
 use yii\base\Event;
 use yii\base\Module;
 
@@ -17,7 +17,7 @@ class ElementStatusEvents extends Module
     // =========================================================================
 
     /**
-     * @event ElementStatusesChangedEvent
+     * @event ElementStatusesEvent
      */
     const EVENT_ELEMENT_STATUSES_CHANGED = 'elementStatusesChanged';
 
@@ -27,7 +27,7 @@ class ElementStatusEvents extends Module
     /**
      * @var Element[]
      */
-    public $_elementsChanged = [];
+    private $_elementsChanged = [];
 
     // Public Methods
     // =========================================================================
@@ -73,7 +73,7 @@ class ElementStatusEvents extends Module
             if (!empty($this->_elementsChanged)) {
                 // Trigger a 'statusesChanged' event
                 if ($this->hasEventHandlers(self::EVENT_ELEMENT_STATUSES_CHANGED)) {
-                    $this->trigger(self::EVENT_ELEMENT_STATUSES_CHANGED, new ElementStatusesChangedEvent([
+                    $this->trigger(self::EVENT_ELEMENT_STATUSES_CHANGED, new ElementStatusesEvent([
                         'elements' => $this->_elementsChanged,
                     ]));
                 }
