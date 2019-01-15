@@ -2,6 +2,8 @@
 
 The Element Status Events module provides events that are triggered whenever an element’s status changes. It is intended to be used a helper module for other Craft modules and plugins.
 
+To get an understanding of how the module works, read the [Challenge #6 – The Chicken or the Egg](https://craftcodingchallenge.com/challenge-6-the-chicken-or-the-egg) solution.
+
 ## License
 
 This module is licensed for free under the MIT License.
@@ -27,9 +29,11 @@ Then add it to your project’s `config/app.php` file as follows.
         ],
     ];
     
+## Events
+
 The module provides the following events.
 
-### `Element::EVENT_STATUS_CHANGED`
+### `ElementStatusBehavior::EVENT_STATUS_CHANGED`
 
 Triggered whenever an element’s status is changed. The element will have a `statusBeforeSave` (string) and `statusChanged` (boolean) parameter available to it.
 
