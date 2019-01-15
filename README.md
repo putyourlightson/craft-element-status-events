@@ -31,7 +31,7 @@ The module provides the following events.
 
 ### `Element::EVENT_STATUS_CHANGED`
 
-Triggered whenever an element’s status is changed. The element will have a `statusBeforeSave` (string) parameter available to it.
+Triggered whenever an element’s status is changed. The element will have a `statusBeforeSave` (string) and `statusChanged` (boolean) parameter available to it.
 
     Event::on(Element::class, ElementStatusBehavior::EVENT_STATUS_CHANGED, function() {
         /** @var Element $element */
@@ -39,12 +39,12 @@ Triggered whenever an element’s status is changed. The element will have a `st
         
         $oldStatus = $element->statusBeforeSave;
         $newStatus = $element->status;
-        $statusChanged = $element->$statusChanged;
+        $statusChanged = $element->statusChanged;
     }); 
 
 ### `ElementStatusEvents::EVENT_ELEMENT_STATUSES_CHANGED`
 
-Triggered after the response has been prepared if one or more element statused have changed. The element will have a `statusBeforeSave` (string) and `statusChanged` (boolean) parameter available to it.
+Triggered after the response has been prepared if one or more element statuses have changed. Each element in the array `$event->elements` will have a `statusBeforeSave` (string) and `statusChanged` (boolean) parameter available to it.
 
     Event::on(ElementStatusEvents::class, ElementStatusEvents::EVENT_ELEMENT_STATUSES_CHANGED, 
         function(ElementStatusesEvent $event) {
@@ -52,7 +52,7 @@ Triggered after the response has been prepared if one or more element statused h
                 /** @var Element $element */
                 $oldStatus = $element->statusBeforeSave;
                 $newStatus = $element->status;
-                $statusChanged = $element->$statusChanged;
+                $statusChanged = $element->statusChanged;
             }
         }
     ); 
