@@ -2,7 +2,7 @@
 
 The Element Status Events module provides events that are triggered whenever an element’s status changes. It is intended to be used a helper module for other Craft modules and plugins.
 
-Note that the events are triggered only when elements are saved. An entry that is enabled with a future post date will not automatically trigger the event when the post date is reached.
+Note that the events are triggered only when elements are saved. An entry that is enabled with a future post date will not automatically trigger the event when the post date is reached. For that functionality, take a look at the [Published Event](https://github.com/sjelfull/craft3-publishedevent) plugin.
 
 To get an understanding of how the module works, read the [Challenge #6 – The Chicken or the Egg](https://craftcodingchallenge.com/challenge-6-the-chicken-or-the-egg) solution.
 
