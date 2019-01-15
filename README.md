@@ -20,7 +20,7 @@ Install the module manually using composer.
 
     composer require putyourlightson/craft-element-status-events
 
-Then add it to your project’s `config/app.php` file as follows.
+You can either add it to your project’s `config/app.php` file as follows.
 
     return [
         'modules' => [
@@ -31,6 +31,14 @@ Then add it to your project’s `config/app.php` file as follows.
         ],
     ];
     
+Or you can load and initialise it directly from your own module or plugin as follows.
+
+    // Load the service
+    $this->set('elementStatus', ElementStatusService::class);
+    
+    // Register the event listeners
+    $this->elementStatus->registerEventListeners();
+
 ## Events
 
 The module provides the following events.
@@ -48,11 +56,11 @@ Triggered whenever an element’s status is changed. The element will have a `st
         $statusChanged = $element->statusChanged;
     }); 
 
-### `ElementStatusEvents::EVENT_ELEMENT_STATUSES_CHANGED`
+### `ElementStatusService::EVENT_ELEMENT_STATUSES_CHANGED`
 
 Triggered after the response has been prepared if one or more element statuses have changed. Each element in the array `$event->elements` will have a `statusBeforeSave` (string) and `statusChanged` (boolean) parameter available to it.
 
-    Event::on(ElementStatusEvents::class, ElementStatusEvents::EVENT_ELEMENT_STATUSES_CHANGED, 
+    Event::on(ElementStatusService::class, ElementStatusService::EVENT_ELEMENT_STATUSES_CHANGED, 
         function(ElementStatusesEvent $event) {
             foreach ($event->elements as $element) {
                 /** @var Element $element */

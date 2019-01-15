@@ -1,7 +1,7 @@
 {
     "name": "putyourlightson/craft-element-status-events",
     "description": "Element status events module for Craft CMS.",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "type": "project",
     "homepage": "https://github.com/putyourlightson/craft-element-status-events",
     "license": "MIT",
