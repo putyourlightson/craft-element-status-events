@@ -45,7 +45,7 @@ class ElementStatusEvents extends Module
             $element = $event->element;
 
             // Attach behavior to element
-            $element->attachBehavior('elementStatus', ElementStatusBehavior::class);
+            $element->attachBehavior('elementStatusEvents', ElementStatusBehavior::class);
 
             // Call onBeforeSaveStatus if not a new element
             if (!$event->isNew) {
@@ -59,7 +59,7 @@ class ElementStatusEvents extends Module
             $element = $event->element;
 
             // Call onAfterSaveStatus if element has the behavior
-            if ($element->getBehavior('elementStatus') !== null) {
+            if ($element->getBehavior('elementStatusEvents') !== null) {
                 $element->onAfterSaveStatus();
 
                 if ($element->statusChanged) {
