@@ -41,7 +41,7 @@ Or you can load and initialise it directly from your own module or plugin as fol
 
 ## Events
 
-The module provides the following events.
+The module provides the following event.
 
 ### `ElementStatusBehavior::EVENT_STATUS_CHANGED`
 

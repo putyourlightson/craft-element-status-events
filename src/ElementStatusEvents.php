@@ -2,6 +2,7 @@
 namespace putyourlightson\elementstatusevents;
 
 use putyourlightson\elementstatusevents\services\ElementStatusService;
+use yii\base\InvalidConfigException;
 use yii\base\Module;
 
 /**
@@ -15,6 +16,8 @@ class ElementStatusEvents extends Module
 
     /**
      * @inheritdoc
+     *
+     * @throws InvalidConfigException
      */
     public function init()
     {
