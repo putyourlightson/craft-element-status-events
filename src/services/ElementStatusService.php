@@ -42,10 +42,6 @@ class ElementStatusService extends Component
             // Call onAfterSaveStatus if element has the behavior
             if ($element->getBehavior('elementStatusEvents') !== null) {
                 $element->onAfterSaveStatus();
-
-                if ($element->statusChanged) {
-                    $this->_elementsChanged[] = $element;
-                }
             }
         });
     }

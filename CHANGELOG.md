@@ -1,5 +1,9 @@
 # Element Status Events Changelog
 
+## 1.2.1 - 2019-01-18
+### Fixed
+- Fixed missing variable.
+
 ## 1.2.0 - 2019-01-17
 ### Changed
 - Removed the `ElementStatusService::EVENT_ELEMENT_STATUSES_CHANGED` event as it cannot be guaranteed that it will be triggered under every circumstance. 
