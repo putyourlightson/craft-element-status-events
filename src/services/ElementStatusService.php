@@ -10,6 +10,14 @@ use yii\base\Event;
 
 class ElementStatusService extends Component
 {
+    // Properties
+    // =========================================================================
+
+    /**
+     * @var bool
+     */
+    private $_eventListenersRegistered = false;
+
     // Public Methods
     // =========================================================================
 
@@ -18,7 +26,10 @@ class ElementStatusService extends Component
      */
     public function registerEventListeners()
     {
-        parent::init();
+        // Ensure event listeners have not already been registered
+        if ($this->_eventListenersRegistered) {
+            return;
+        }
 
         // Before saving an element
         Event::on(Elements::class, Elements::EVENT_BEFORE_SAVE_ELEMENT, function(ElementEvent $event) {
@@ -44,5 +55,7 @@ class ElementStatusService extends Component
                 $element->onAfterSaveStatus();
             }
         });
+
+        $this->_eventListenersRegistered = true;
     }
 }
