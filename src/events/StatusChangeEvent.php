@@ -27,7 +27,7 @@ class StatusChangeEvent extends Event
      *
      * @return bool
      */
-    public function hasChangedTo(string $nameOfStatus): bool
+    public function changedTo(string $nameOfStatus): bool
     {
         return ($this->element->getStatus() === $nameOfStatus);
     }
