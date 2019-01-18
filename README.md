@@ -47,17 +47,19 @@ The module provides the following event.
 
 Triggered whenever an element’s status is changed. The `StatusChangeEvent` provides information about the change.
 
-    Event::on(
-        ElementStatusEvents::class, 
-        ElementStatusEvents::EVENT_STATUS_CHANGED, 
-        function(StatusChangeEvent $event) {
-            $oldStatus   = $event->statusBeforeSave;
-            $newStatus   = $event->element->getStatus();
-            $isLive      = $event->changedToPublished();
-            $isDeath     = $event->changedToUnpublished();
-            $isScheduled = $event->changedTo('pending');
-        }
-    ); 
+´´´php
+Event::on(
+    ElementStatusEvents::class, 
+    ElementStatusEvents::EVENT_STATUS_CHANGED, 
+    function(StatusChangeEvent $event) {
+        $oldStatus   = $event->statusBeforeSave;
+        $newStatus   = $event->element->getStatus();
+        $isLive      = $event->changedToPublished();
+        $isDeath     = $event->changedToUnpublished();
+        $isScheduled = $event->changedTo('pending');
+    }
+);
+```
 
 ### `ElementStatusService::EVENT_ELEMENT_STATUSES_CHANGED`
 
