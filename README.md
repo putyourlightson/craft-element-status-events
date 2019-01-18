@@ -43,11 +43,17 @@ Or you can load and initialise it directly from your own module or plugin as fol
 
 The module provides the following event.
 
-### `ElementStatusBehavior::EVENT_STATUS_CHANGED`
+### `ElementStatusEvents::EVENT_STATUS_CHANGED`
 
 Triggered whenever an element’s status is changed. The `StatusChangeEvent` provides information about the change.
 
-´´´php
+```php
+
+use putyourlightson\elementstatusevents\ElementStatusEvents;
+use putyourlightson\elementstatusevents\events\StatusChangeEvent;
+
+// ...
+
 Event::on(
     ElementStatusEvents::class, 
     ElementStatusEvents::EVENT_STATUS_CHANGED, 
@@ -60,20 +66,5 @@ Event::on(
     }
 );
 ```
-
-### `ElementStatusService::EVENT_ELEMENT_STATUSES_CHANGED`
-
-Triggered after the response has been prepared if one or more element statuses have changed. Each element in the array `$event->elements` will have a `statusBeforeSave` (string) and `statusChanged` (boolean) parameter available to it.
-
-    Event::on(ElementStatusService::class, ElementStatusService::EVENT_ELEMENT_STATUSES_CHANGED, 
-        function(ElementStatusesEvent $event) {
-            foreach ($event->elements as $element) {
-                /** @var Element $element */
-                $oldStatus = $element->statusBeforeSave;
-                $newStatus = $element->status;
-                $statusChanged = $element->statusChanged;
-            }
-        }
-    ); 
 
 <small>Created by [PutYourLightsOn](https://putyourlightson.com/).</small>
