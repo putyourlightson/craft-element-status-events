@@ -11,6 +11,12 @@ use yii\base\Module;
  */
 class ElementStatusEvents extends Module
 {
+
+    /**
+     * @event Event
+     */
+    const EVENT_STATUS_CHANGED = 'statusChanged';
+
     // Public Methods
     // =========================================================================
 
@@ -22,6 +28,8 @@ class ElementStatusEvents extends Module
     public function init()
     {
         parent::init();
+
+
 
         // Register service
         $this->set('elementStatus', ElementStatusService::class);

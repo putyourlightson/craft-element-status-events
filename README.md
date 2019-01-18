@@ -47,13 +47,12 @@ The module provides the following event.
 
 Triggered whenever an element’s status is changed. The element will have a `statusBeforeSave` (string) and `statusChanged` (boolean) parameter available to it.
 
-    Event::on(Element::class, ElementStatusBehavior::EVENT_STATUS_CHANGED, function() {
+    Event::on(ElementStatusEvents::class, ElementStatusEvents::EVENT_STATUS_CHANGED, function(StatusChangeEvent $event) {
         /** @var Element $element */
-        $element = $this->sender;
+        $element = $event->element;
         
-        $oldStatus = $element->statusBeforeSave;
+        $oldStatus = $event->statusBeforeSave;
         $newStatus = $element->status;
-        $statusChanged = $element->statusChanged;
     }); 
 
 ### `ElementStatusService::EVENT_ELEMENT_STATUSES_CHANGED`
