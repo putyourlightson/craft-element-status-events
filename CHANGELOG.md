@@ -1,5 +1,9 @@
 # Element Status Events Changelog
 
+## 1.3.0 - 2019-01-18
+### Changed
+- Converted from module to extension. 
+
 ## 1.2.1 - 2019-01-18
 ### Fixed
 - Fixed missing variable.

@@ -3,18 +3,13 @@ namespace putyourlightson\elementstatusevents\behaviors;
 
 use Craft;
 use craft\base\Element;
+use craft\events\ElementEvent;
+use putyourlightson\elementstatusevents\ElementStatusEvents;
 use yii\base\Behavior;
+use yii\base\Event;
 
 class ElementStatusBehavior extends Behavior
 {
-    // Constants
-    // =========================================================================
-
-    /**
-     * @event Event
-     */
-    const EVENT_STATUS_CHANGED = 'statusChanged';
-
     // Properties
     // =========================================================================
 
@@ -60,8 +55,12 @@ class ElementStatusBehavior extends Behavior
             $this->statusChanged = true;
 
             // Trigger a 'statusChanged' event
-            if ($this->owner->hasEventHandlers(self::EVENT_STATUS_CHANGED)) {
-                $this->owner->trigger(self::EVENT_STATUS_CHANGED);
+            if (Event::hasHandlers(ElementStatusEvents::class, ElementStatusEvents::EVENT_STATUS_CHANGED)) {
+                Event::trigger(ElementStatusEvents::class, ElementStatusEvents::EVENT_STATUS_CHANGED,
+                    new ElementEvent([
+                        'element' => $element,
+                    ])
+                );
             }
         }
     }
