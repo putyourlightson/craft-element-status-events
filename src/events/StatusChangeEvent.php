@@ -35,7 +35,7 @@ class StatusChangeEvent extends Event
     /**
      * @return bool
      */
-    public function isPublished(): bool
+    public function changedToPublished(): bool
     {
        return in_array($this->element->getStatus(), [Entry::STATUS_LIVE, Element::STATUS_ENABLED]);
     }
@@ -43,9 +43,9 @@ class StatusChangeEvent extends Event
     /**
      * @return bool
      */
-    public function isUnpublished(): bool
+    public function changedToUnpublished(): bool
     {
-        return !$this->isPublished();
+        return !$this->changedToPublished();
     }
 
 
