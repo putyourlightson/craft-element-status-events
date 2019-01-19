@@ -1,5 +1,14 @@
 # Element Status Events Changelog
 
+## 2.0.0 - UNRELEASED
+### Changed
+- No need to bootstrap or register the Module
+- Extension implements `BootstrapInterface`
+- Event `ElementStatusChange::EVENT_STATUS_CHANGED` 
+
+### Added
+...
+
 ## 1.2.0 - 2019-01-17
 ### Changed
 - Removed the `ElementStatusService::EVENT_ELEMENT_STATUSES_CHANGED` event as it cannot be guaranteed that it will be triggered under every circumstance. 
