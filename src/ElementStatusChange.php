@@ -4,6 +4,7 @@ namespace putyourlightson\elementstatusevents;
 
 use craft\web\Application as CraftWebApp;
 use craft\console\Application as CraftConsoleApp;
+use putyourlightson\elementstatusevents\commands\ScheduledElements;
 use yii\base\BootstrapInterface;
 use yii\base\Component;
 use craft\base\Element;
@@ -64,5 +65,13 @@ class ElementStatusChange extends Component implements BootstrapInterface
                 $element->fireEventOnChange();
             }
         });
+
+        static::registerScheduledCommand($app);
     }
+
+    public static function registerScheduledCommand($app, $group = 'element-status-change')
+    {
+        $app->controllerMap[$group] = ScheduledElements::class;
+    }
+
 }

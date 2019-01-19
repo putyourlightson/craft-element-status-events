@@ -12,6 +12,8 @@
     - `changedToPublished()`
     - `changedToUnpublished()`
 
+- craft cli command `element-status-change/scheduled` to take scheduled elements into account    
+
 ## 1.2.0 - 2019-01-17
 ### Changed
 - Removed the `ElementStatusService::EVENT_ELEMENT_STATUSES_CHANGED` event as it cannot be guaranteed that it will be triggered under every circumstance. 
