@@ -31,14 +31,14 @@ Triggered whenever an element’s status is changed. The `StatusChangeEvent` pro
 
 ```php
 
-use putyourlightson\elementstatusevents\ElementStatusEvents;
+use putyourlightson\elementstatusevents\ElementStatusChange;
 use putyourlightson\elementstatusevents\events\StatusChangeEvent;
 
 // ...
 
 Event::on(
-    ElementStatusEvents::class, 
-    ElementStatusEvents::EVENT_STATUS_CHANGED, 
+    ElementStatusChange::class, 
+    ElementStatusChange::EVENT_STATUS_CHANGED, 
     function(StatusChangeEvent $event) {
         $oldStatus   = $event->statusBeforeSave;
         $newStatus   = $event->element->getStatus();
@@ -49,32 +49,6 @@ Event::on(
 );
 ```
 
-
-**Not needed if it would be a yii-extension**
-
-<strike>
-You can either add it to your project’s `config/app.php` file as follows.
-
-    return [
-        'modules' => [
-            'elementstatusevents' => putyourlightson\elementstatusevents\ElementStatusEvents::class,
-        ],
-        'bootstrap' => [
-            'elementstatusevents',
-        ],
-    ];
-</strike>
-
-<strike>
-Or you can load and initialise it directly from your own module or plugin as follows.
-
-    // Load the service
-    $this->set('elementStatus', ElementStatusService::class);
-    
-    // Register the event listeners
-    $this->elementStatus->registerEventListeners();
- 
- </strike>
 
 
 <small>Created by [PutYourLightsOn](https://putyourlightson.com/).</small>

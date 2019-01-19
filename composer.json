@@ -1,8 +1,8 @@
 {
     "name": "putyourlightson/craft-element-status-events",
-    "description": "Element status events module for Craft CMS.",
-    "version": "1.2.0",
-    "type": "craft-module",
+    "description": "Element status events extension for Craft CMS.",
+    "version": "2.0.0",
+    "type": "yii2-extension",
     "homepage": "https://github.com/putyourlightson/craft-element-status-events",
     "license": "MIT",
     "keywords": [
@@ -13,12 +13,24 @@
         "status",
         "events"
     ],
+    "authors": [
+        {
+            "name": "Ben Croker",
+            "homepage": "https://putyourlightson.com",
+            "role": "Developer"
+        },
+        {
+            "name": "Oliver Stark",
+            "homepage": "https://www.fortrabbit.com",
+            "role": "Developer"
+        }
+    ],
     "require": {
         "craftcms/cms": "^3.0.0"
     },
     "autoload": {
         "psr-4": {
-          "putyourlightson\\elementstatusevents\\": "src/"
+            "putyourlightson\\elementstatusevents\\": "src/"
         }
     },
     "support": {
@@ -27,12 +39,6 @@
         "issues": "https://github.com/putyourlightson/craft-element-status-events/issues"
     },
     "extra": {
-        "name": "Element Status Events",
-        "handle": "element-status-events",
-        "developer": "PutYourLightsOn",
-        "developerUrl": "https://putyourlightson.com/",
-        "schemaVersion": "1.0.0",
-        "changelogUrl": "https://raw.githubusercontent.com/putyourlightson/craft-element-status-events/v1/CHANGELOG.md",
-        "class": "putyourlightson\\elementstatusevents\\ElementStatusEvents"
+        "bootstrap": "putyourlightson\\elementstatusevents\\ElementStatusEvents"
     }
 }
