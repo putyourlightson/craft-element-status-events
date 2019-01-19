@@ -48,18 +48,23 @@ class ElementStatusBehavior extends Behavior
         /** @var Element $element */
         $element = $this->owner;
 
-        if ($this->statusBeforeSave != $element->getStatus()) {
-            // Trigger a 'statusChanged' event
-            if (Event::hasHandlers(ElementStatusChange::class, ElementStatusChange::EVENT_STATUS_CHANGED)) {
-                Event::trigger(
-                    ElementStatusChange::class,
-                    ElementStatusChange::EVENT_STATUS_CHANGED,
-                    new StatusChangeEvent([
-                        'element'          => $element,
-                        'statusBeforeSave' => $this->statusBeforeSave
-                    ])
-                );
-            }
+        // Nothing changed?
+        if ($this->statusBeforeSave === $element->getStatus()) {
+            return;
         }
+
+        // No handlers, no need to do fire the event
+        if (!Event::hasHandlers(ElementStatusChange::class, ElementStatusChange::EVENT_STATUS_CHANGED)) {
+            return;
+        }
+
+        Event::trigger(
+            ElementStatusChange::class,
+            ElementStatusChange::EVENT_STATUS_CHANGED,
+            new StatusChangeEvent([
+                'element'          => $element,
+                'statusBeforeSave' => $this->statusBeforeSave
+            ])
+        );
     }
 }

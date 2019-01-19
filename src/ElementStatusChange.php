@@ -25,9 +25,6 @@ class ElementStatusChange extends Component implements BootstrapInterface
      */
     const EVENT_STATUS_CHANGED = 'statusChanged';
 
-    // Public Methods
-    // =========================================================================
-
 
     /**
      * @param \yii\base\Application $app
@@ -41,16 +38,20 @@ class ElementStatusChange extends Component implements BootstrapInterface
 
         // Before saving an element
         Event::on(Elements::class, Elements::EVENT_BEFORE_SAVE_ELEMENT, function (ElementEvent $event) {
+
             /** @var Element|ElementStatusBehavior $element */
             $element = $event->element;
 
-            // Attach behavior to element
+            // Attach behavior to access the status later
             $element->attachBehavior('elementStatusEvents', ElementStatusBehavior::class);
 
-            // Call onBeforeSaveStatus if not a new element
+            // No need to remember anything
             if (!$event->isNew) {
-                $element->rememberPreviousStatus();
+                return;
             }
+
+            $element->rememberPreviousStatus();
+
         });
 
         // After saving an element
@@ -58,7 +59,7 @@ class ElementStatusChange extends Component implements BootstrapInterface
             /** @var Element|ElementStatusBehavior $element */
             $element = $event->element;
 
-            // Call onAfterSaveStatus if element has the behavior
+            // Fire ElementStatusChange::EVENT_STATUS_CHANGED
             if ($element->getBehavior('elementStatusEvents') !== null) {
                 $element->fireEventOnChange();
             }
