@@ -7,7 +7,10 @@
 - Event `ElementStatusChange::EVENT_STATUS_CHANGED` 
 
 ### Added
-...
+- Event object `StatusChangeEvent` with access to element via `getElement()` and check methods:
+    - `changedTo(string $nameOfStatus)`
+    - `changedToPublished()`
+    - `changedToUnpublished()`
 
 ## 1.2.0 - 2019-01-17
 ### Changed

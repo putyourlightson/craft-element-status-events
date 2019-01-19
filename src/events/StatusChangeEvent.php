@@ -48,5 +48,11 @@ class StatusChangeEvent extends Event
         return !$this->changedToPublished();
     }
 
+    /**
+     * @return \craft\base\ElementInterface|null
+     */
+    public function getElement() {
+        return $this->element;
+    }
 
 }
