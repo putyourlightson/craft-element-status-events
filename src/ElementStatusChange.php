@@ -22,13 +22,22 @@ use yii\base\Event;
 class ElementStatusChange extends Component implements BootstrapInterface
 {
 
-    /**
-     * @event Event
-     */
     const EVENT_STATUS_CHANGED = 'statusChanged';
 
+    /**
+     * Register console command
+     *
+     * @param \craft\console\Application $app
+     * @param string                     $group
+     */
+    public static function registerScheduledCommand(Application $app, $group = 'element-status-change')
+    {
+        $app->controllerMap[$group] = ScheduledElements::class;
+    }
 
     /**
+     * Bootstrap the extension
+     *
      * @param \yii\base\Application $app
      */
     public function bootstrap($app)
@@ -46,13 +55,13 @@ class ElementStatusChange extends Component implements BootstrapInterface
         }
     }
 
-
     /**
      * Register event listener
      *
      * @param \craft\events\ElementEvent $event
      */
-    public function rememberPreviousStatus(ElementEvent $event) {
+    public function rememberPreviousStatus(ElementEvent $event)
+    {
         /** @var Element|ElementStatusBehavior $element */
         $element = $event->element;
 
@@ -65,7 +74,6 @@ class ElementStatusChange extends Component implements BootstrapInterface
         }
 
         $element->rememberPreviousStatus();
-
     }
 
     /**
@@ -82,15 +90,6 @@ class ElementStatusChange extends Component implements BootstrapInterface
         if ($element->getBehavior('elementStatusEvents') !== null) {
             $element->fireEventOnChange();
         }
-    }
-
-    /**
-     * @param \craft\console\Application $app
-     * @param string                     $group
-     */
-    public static function registerScheduledCommand(Application $app, $group = 'element-status-change')
-    {
-        $app->controllerMap[$group] = ScheduledElements::class;
     }
 
 }

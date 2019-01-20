@@ -77,17 +77,16 @@ class ScheduledElements extends Controller
             return ExitCode::OK;
         }
 
-        $this->drawTable($entries);
         $this->fireEvent($published, Entry::STATUS_PENDING);
         $this->fireEvent($expired, Entry::STATUS_LIVE);
+
+        $this->drawTable($entries);
 
         return ExitCode::OK;
     }
 
     /**
-     * @param array $entries
-     *
-     * @throws \Exception
+     * @param array $entries*
      */
     protected function drawTable(array $entries)
     {
