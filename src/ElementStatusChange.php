@@ -2,6 +2,7 @@
 
 namespace putyourlightson\elementstatusevents;
 
+use craft\console\Application;
 use craft\web\Application as CraftWebApp;
 use craft\console\Application as CraftConsoleApp;
 use putyourlightson\elementstatusevents\commands\ScheduledElements;
@@ -37,39 +38,57 @@ class ElementStatusChange extends Component implements BootstrapInterface
             return;
         }
 
-        // Before saving an element
-        Event::on(Elements::class, Elements::EVENT_BEFORE_SAVE_ELEMENT, function (ElementEvent $event) {
+        Event::on(Elements::class, Elements::EVENT_BEFORE_SAVE_ELEMENT, [$this, 'rememberPreviousStatus']);
+        Event::on(Elements::class, Elements::EVENT_AFTER_SAVE_ELEMENT, [$this, 'fireEventOnChange']);
 
-            /** @var Element|ElementStatusBehavior $element */
-            $element = $event->element;
-
-            // Attach behavior to access the status later
-            $element->attachBehavior('elementStatusEvents', ElementStatusBehavior::class);
-
-            // No need to remember anything
-            if (!$event->isNew) {
-                return;
-            }
-
-            $element->rememberPreviousStatus();
-
-        });
-
-        // After saving an element
-        Event::on(Elements::class, Elements::EVENT_AFTER_SAVE_ELEMENT, function (ElementEvent $event) {
-            /** @var Element|ElementStatusBehavior $element */
-            $element = $event->element;
-
-            // Fire ElementStatusChange::EVENT_STATUS_CHANGED
-            if ($element->getBehavior('elementStatusEvents') !== null) {
-                $element->fireEventOnChange();
-            }
-        });
-
-        static::registerScheduledCommand($app);
+        if ($app instanceof CraftConsoleApp) {
+            self::registerScheduledCommand($app);
+        }
     }
 
-    public static function registerScheduledCommand($app, $group = 'element-status-change')
+
+    /**
+     * Register event listener
+     *
+     * @param \craft\events\ElementEvent $event
+     */
+    public function rememberPreviousStatus(ElementEvent $event) {
+        /** @var Element|ElementStatusBehavior $element */
+        $element = $event->element;
+
+        // Attach behavior to access the status later
+        $element->attachBehavior('elementStatusEvents', ElementStatusBehavior::class);
+
+        // No need to remember anything
+        if ($event->isNew) {
+            return;
+        }
+
+        $element->rememberPreviousStatus();
+
+    }
+
+    /**
+     * Register event listener
+     *
+     * @param \craft\events\ElementEvent $event
+     */
+    public function fireEventOnChange(ElementEvent $event)
+    {
+        /** @var Element|ElementStatusBehavior $element */
+        $element = $event->element;
+
+        // Fire ElementStatusChange::EVENT_STATUS_CHANGED
+        if ($element->getBehavior('elementStatusEvents') !== null) {
+            $element->fireEventOnChange();
+        }
+    }
+
+    /**
+     * @param \craft\console\Application $app
+     * @param string                     $group
+     */
+    public static function registerScheduledCommand(Application $app, $group = 'element-status-change')
     {
         $app->controllerMap[$group] = ScheduledElements::class;
     }
