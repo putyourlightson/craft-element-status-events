@@ -6,28 +6,24 @@ To get an understanding of how the module works, read the [Challenge #6 – The 
 
 ## Requirements
 
-This module requires Craft CMS 3.0.0 or later.
+This component requires Craft CMS 3.0.0 or later.
 
 ## Usage
 
-Install the module manually using composer.
+Install it manually using composer or add it as a dependency to your plugin.
 ```
 composer require putyourlightson/craft-element-status-events
 ```    
     
 If you work with scheduled Entries (future published or expired), make sure to set up cron that calls:
 ```
-php craft php craft element-status-change/scheduled
+php craft element-status-change/scheduled
 ```    
 
 
 ## Events
 
-The module provides the following event.
-
-### `ElementStatusChange::EVENT_STATUS_CHANGED`
-
-Triggered whenever an element’s status is changed. The `StatusChangeEvent` provides information about the change.
+Whenever an element’s status is changed, `ElementStatusChange::EVENT_STATUS_CHANGED` is fired. The `StatusChangeEvent` object provides information about the change.
 
 ```php
 
