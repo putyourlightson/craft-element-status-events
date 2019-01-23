@@ -2,6 +2,7 @@
 
 namespace putyourlightson\elementstatusevents;
 
+use Craft;
 use craft\console\Application;
 use craft\web\Application as CraftWebApp;
 use craft\console\Application as CraftConsoleApp;
@@ -13,6 +14,7 @@ use craft\events\ElementEvent;
 use craft\services\Elements;
 use putyourlightson\elementstatusevents\behaviors\ElementStatusBehavior;
 use yii\base\Event;
+use yii\caching\CacheInterface;
 
 /**
  * Class ElementStatusChange
@@ -51,6 +53,8 @@ class ElementStatusChange extends Component implements BootstrapInterface
         Event::on(Elements::class, Elements::EVENT_AFTER_SAVE_ELEMENT, [$this, 'fireEventOnChange']);
 
         if ($app instanceof CraftConsoleApp) {
+            // Tell Craft about the concrete implementation of CacheInterface
+            Craft::$container->set(CacheInterface::class, Craft::$app->getCache());
             self::registerScheduledCommand($app);
         }
     }

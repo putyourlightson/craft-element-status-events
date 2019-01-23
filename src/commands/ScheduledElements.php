@@ -86,7 +86,7 @@ class ScheduledElements extends Controller
     }
 
     /**
-     * @param array $entries*
+     * @param array $entries
      */
     protected function drawTable(array $entries)
     {
