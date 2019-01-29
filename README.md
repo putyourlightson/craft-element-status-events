@@ -1,42 +1,54 @@
-# Element Status Events Extension for Craft CMS 3
+# Element Status Events Module for Craft CMS 3
 
-The Element Status Events extension provides events that are triggered whenever an element’s status changes. It is intended to be used by Craft modules and plugins.
+The Element Status Events extension provides events that are triggered whenever an element’s status changes. It is intended to be used a helper component for other Craft modules and plugins.
 
-Note that the events are triggered only when elements are saved. An entry that is enabled with a future post date will not automatically trigger the event when the post date is reached. For that functionality, take a look at the [Published Event](https://github.com/sjelfull/craft3-publishedevent) plugin.
-
-To get an understanding of how the extension works, read the [Challenge #6 – The Chicken or the Egg](https://craftcodingchallenge.com/challenge-6-the-chicken-or-the-egg) solution.
-
-## License
-
-This extension is licensed for free under the MIT License.
+To get an understanding of how the module works, read the [Challenge #6 – The Chicken or the Egg](https://craftcodingchallenge.com/challenge-6-the-chicken-or-the-egg) solution.
 
 ## Requirements
 
-This extension requires Craft CMS 3.0.0 or later.
+This component requires Craft CMS 3.0.0 or later.
 
 ## Usage
 
-To use the extension, simply require it in your module or plugin’s `compose.json` file.
-   
-    "require": {
-        "putyourlightson/craft-element-status-events": "^1.3.0"
-    },
+Install it manually using composer or add it as a dependency to your plugin.
+```
+composer require putyourlightson/craft-element-status-events
+```    
+    
+If you work with scheduled Entries (future published or expired), make sure to set up cron that calls:
+```
+php craft element-status-change/scheduled
+```    
+
 
 ## Events
 
-The module provides the following event.
+Whenever an element’s status is changed, `ElementStatusChange::EVENT_STATUS_CHANGED` is fired. The `StatusChangeEvent` object provides information about the change.
 
-### `ElementStatusEvents::EVENT_STATUS_CHANGED`
+```php
 
-Triggered whenever an element’s status is changed. The element will have a `statusBeforeSave` (string) and `statusChanged` (boolean) parameter available to it.
+use putyourlightson\elementstatusevents\ElementStatusChange;
+use putyourlightson\elementstatusevents\events\StatusChangeEvent;
 
-    Event::on(ElementStatusEvents::class, ElementStatusEvents::EVENT_STATUS_CHANGED, function(ElementEvent $event) {
-        /** @var Element $element */
-        $element = $event->element;
-        
-        $oldStatus = $element->statusBeforeSave;
-        $newStatus = $element->status;
-        $statusChanged = $element->statusChanged;
-    }); 
+// ...
 
-<small>Created by [PutYourLightsOn](https://putyourlightson.com/).</small>
+Event::on(
+    ElementStatusChange::class, 
+    ElementStatusChange::EVENT_STATUS_CHANGED, 
+    function(StatusChangeEvent $event) {
+        $oldStatus   = $event->statusBeforeSave;
+        $newStatus   = $event->element->getStatus();
+        $isLive      = $event->changedToPublished();
+        $isDeath     = $event->changedToUnpublished();
+        $isScheduled = $event->changedTo('pending');
+    }
+);
+```
+
+
+## License
+
+This module is licensed for free under the MIT License.
+
+
+<small>Created by [PutYourLightsOn](https://putyourlightson.com/) in cooperation with [Oliver Stark](https://github.com/ostark)</small>

@@ -1,8 +1,22 @@
 # Element Status Events Changelog
 
+## 2.0.0 - UNRELEASED
+### Added
+- Added event object `StatusChangeEvent` with access to element via `getElement()` and check methods:
+    - `changedTo(string $nameOfStatus)`
+    - `changedToPublished()`
+    - `changedToUnpublished()`
+
+- Added Craft CLI command `element-status-change/scheduled` to take scheduled elements into account.
+
+### Changed
+- No need to bootstrap or register the extension.
+- Extension implements `BootstrapInterface`.
+- Event `ElementStatusChange::EVENT_STATUS_CHANGED`.
+
 ## 1.3.0 - 2019-01-18
 ### Changed
-- Converted from module to extension. 
+- Converted from module to extension.
 
 ## 1.2.1 - 2019-01-18
 ### Fixed

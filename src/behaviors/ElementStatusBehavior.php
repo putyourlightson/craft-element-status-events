@@ -1,10 +1,11 @@
 <?php
+
 namespace putyourlightson\elementstatusevents\behaviors;
 
 use Craft;
 use craft\base\Element;
-use craft\events\ElementEvent;
-use putyourlightson\elementstatusevents\ElementStatusEvents;
+use putyourlightson\elementstatusevents\ElementStatusChange;
+use putyourlightson\elementstatusevents\events\StatusChangeEvent;
 use yii\base\Behavior;
 use yii\base\Event;
 
@@ -18,10 +19,6 @@ class ElementStatusBehavior extends Behavior
      */
     public $statusBeforeSave = '';
 
-    /**
-     * @var bool
-     */
-    public $statusChanged = false;
 
     // Public Methods
     // =========================================================================
@@ -29,7 +26,7 @@ class ElementStatusBehavior extends Behavior
     /**
      * Saves the status of an element before it is saved
      */
-    public function onBeforeSaveStatus()
+    public function rememberPreviousStatus()
     {
         /** @var Element $element */
         $element = $this->owner;
@@ -46,22 +43,28 @@ class ElementStatusBehavior extends Behavior
     /**
      * Triggers an event if the status has changed
      */
-    public function onAfterSaveStatus()
+    public function fireEventOnChange()
     {
         /** @var Element $element */
         $element = $this->owner;
 
-        if ($this->statusBeforeSave != $element->getStatus()) {
-            $this->statusChanged = true;
-
-            // Trigger a 'statusChanged' event
-            if (Event::hasHandlers(ElementStatusEvents::class, ElementStatusEvents::EVENT_STATUS_CHANGED)) {
-                Event::trigger(ElementStatusEvents::class, ElementStatusEvents::EVENT_STATUS_CHANGED,
-                    new ElementEvent([
-                        'element' => $element,
-                    ])
-                );
-            }
+        // Nothing changed?
+        if ($this->statusBeforeSave === $element->getStatus()) {
+            return;
         }
+
+        // No handlers, no need to do fire the event
+        if (!Event::hasHandlers(ElementStatusChange::class, ElementStatusChange::EVENT_STATUS_CHANGED)) {
+            return;
+        }
+
+        Event::trigger(
+            ElementStatusChange::class,
+            ElementStatusChange::EVENT_STATUS_CHANGED,
+            new StatusChangeEvent([
+                'element'          => $element,
+                'statusBeforeSave' => $this->statusBeforeSave
+            ])
+        );
     }
 }
