@@ -3,10 +3,10 @@
 namespace putyourlightson\elementstatusevents;
 
 use Craft;
-use craft\console\Application;
 use craft\web\Application as CraftWebApp;
 use craft\console\Application as CraftConsoleApp;
 use putyourlightson\elementstatusevents\commands\ScheduledElements;
+use yii\base\Application as YiiApp;
 use yii\base\BootstrapInterface;
 use yii\base\Component;
 use craft\base\Element;
@@ -17,22 +17,27 @@ use yii\base\Event;
 use yii\caching\CacheInterface;
 
 /**
- * Class ElementStatusChange
+ * Class ElementStatusEvents
  *
  * @package putyourlightson\elementstatusevents
  */
-class ElementStatusChange extends Component implements BootstrapInterface
+class ElementStatusEvents extends Component implements BootstrapInterface
 {
+    // Constants
+    // =========================================================================
 
     const EVENT_STATUS_CHANGED = 'statusChanged';
+
+    // Public Methods
+    // =========================================================================
 
     /**
      * Register console command
      *
-     * @param \craft\console\Application $app
-     * @param string                     $group
+     * @param CraftConsoleApp $app
+     * @param string $group
      */
-    public static function registerScheduledCommand(Application $app, $group = 'element-status-change')
+    public static function registerScheduledCommand(CraftConsoleApp $app, $group = 'element-status-events')
     {
         $app->controllerMap[$group] = ScheduledElements::class;
     }
@@ -40,7 +45,7 @@ class ElementStatusChange extends Component implements BootstrapInterface
     /**
      * Bootstrap the extension
      *
-     * @param \yii\base\Application $app
+     * @param YiiApp $app
      */
     public function bootstrap($app)
     {
@@ -62,7 +67,7 @@ class ElementStatusChange extends Component implements BootstrapInterface
     /**
      * Register event listener
      *
-     * @param \craft\events\ElementEvent $event
+     * @param ElementEvent $event
      */
     public function rememberPreviousStatus(ElementEvent $event)
     {
@@ -83,14 +88,14 @@ class ElementStatusChange extends Component implements BootstrapInterface
     /**
      * Register event listener
      *
-     * @param \craft\events\ElementEvent $event
+     * @param ElementEvent $event
      */
     public function fireEventOnChange(ElementEvent $event)
     {
         /** @var Element|ElementStatusBehavior $element */
         $element = $event->element;
 
-        // Fire ElementStatusChange::EVENT_STATUS_CHANGED
+        // Fire ElementStatusEvents::EVENT_STATUS_CHANGED
         if ($element->getBehavior('elementStatusEvents') !== null) {
             $element->fireEventOnChange();
         }

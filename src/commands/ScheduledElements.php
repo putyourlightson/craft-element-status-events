@@ -4,9 +4,10 @@ namespace putyourlightson\elementstatusevents\commands;
 
 use craft\elements\Entry;
 use craft\helpers\Db;
-use putyourlightson\elementstatusevents\ElementStatusChange;
+use putyourlightson\elementstatusevents\ElementStatusEvents;
 use putyourlightson\elementstatusevents\events\StatusChangeEvent;
 use yii\base\Event;
+use yii\base\Module;
 use yii\caching\CacheInterface;
 use yii\console\Controller;
 use yii\console\ExitCode;
@@ -18,25 +19,33 @@ use yii\helpers\BaseConsole as ConsoleHelper;
  */
 class ScheduledElements extends Controller
 {
+    // Constants
+    // =========================================================================
 
     const LAST_CHECK_CACHE_KEY = 'lastScheduledCheck';
     const LAST_CHECK_DEFAULT_INTERVAL = '-24 hours';
     const DATE_FORMAT = 'Y-m-d H:i';
 
+    // Properties
+    // =========================================================================
+
     /**
-     * @var \yii\caching\CacheInterface
+     * @var CacheInterface
      */
     protected $cache;
+
+    // Public Methods
+    // =========================================================================
 
     /**
      * Element Status Change
      *
-     * @param string                      $id
-     * @param \yii\base\Module            $module
-     * @param \yii\caching\CacheInterface $cache
-     * @param array                       $config
+     * @param string $id
+     * @param Module $module
+     * @param CacheInterface $cache
+     * @param array $config
      */
-    public function __construct(string $id, \yii\base\Module $module, CacheInterface $cache, array $config = [])
+    public function __construct(string $id, Module $module, CacheInterface $cache, array $config = [])
     {
         $this->cache = $cache;
         parent::__construct($id, $module, $config);
@@ -117,8 +126,8 @@ class ScheduledElements extends Controller
         }
         foreach ($elements as $element) {
             Event::trigger(
-                ElementStatusChange::class,
-                ElementStatusChange::EVENT_STATUS_CHANGED,
+                ElementStatusEvents::class,
+                ElementStatusEvents::EVENT_STATUS_CHANGED,
                 new StatusChangeEvent([
                     'element'          => $element,
                     'statusBeforeSave' => $previousStatus

@@ -4,7 +4,7 @@ namespace putyourlightson\elementstatusevents\behaviors;
 
 use Craft;
 use craft\base\Element;
-use putyourlightson\elementstatusevents\ElementStatusChange;
+use putyourlightson\elementstatusevents\ElementStatusEvents;
 use putyourlightson\elementstatusevents\events\StatusChangeEvent;
 use yii\base\Behavior;
 use yii\base\Event;
@@ -18,7 +18,6 @@ class ElementStatusBehavior extends Behavior
      * @var string
      */
     public $statusBeforeSave = '';
-
 
     // Public Methods
     // =========================================================================
@@ -53,18 +52,15 @@ class ElementStatusBehavior extends Behavior
             return;
         }
 
-        // No handlers, no need to do fire the event
-        if (!Event::hasHandlers(ElementStatusChange::class, ElementStatusChange::EVENT_STATUS_CHANGED)) {
-            return;
+        if (Event::hasHandlers(ElementStatusEvents::class, ElementStatusEvents::EVENT_STATUS_CHANGED)) {
+            Event::trigger(
+                ElementStatusEvents::class,
+                ElementStatusEvents::EVENT_STATUS_CHANGED,
+                new StatusChangeEvent([
+                    'element' => $element,
+                    'statusBeforeSave' => $this->statusBeforeSave
+                ])
+            );
         }
-
-        Event::trigger(
-            ElementStatusChange::class,
-            ElementStatusChange::EVENT_STATUS_CHANGED,
-            new StatusChangeEvent([
-                'element'          => $element,
-                'statusBeforeSave' => $this->statusBeforeSave
-            ])
-        );
     }
 }

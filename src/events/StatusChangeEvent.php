@@ -2,8 +2,8 @@
 
 namespace putyourlightson\elementstatusevents\events;
 
-
 use craft\base\Element;
+use craft\base\ElementInterface;
 use craft\elements\Entry;
 use yii\base\Event;
 
@@ -13,7 +13,7 @@ class StatusChangeEvent extends Event
     // =========================================================================
 
     /**
-     * @var \craft\base\ElementInterface|null The element model associated with the event.
+     * @var ElementInterface|null The element model associated with the event.
      */
     public $element;
 
@@ -21,6 +21,9 @@ class StatusChangeEvent extends Event
      * @var string Previous status
      */
     public $statusBeforeSave = '';
+
+    // Public Methods
+    // =========================================================================
 
     /**
      * @param string $nameOfStatus
@@ -49,10 +52,10 @@ class StatusChangeEvent extends Event
     }
 
     /**
-     * @return \craft\base\ElementInterface|null
+     * @return ElementInterface|null
      */
-    public function getElement() {
+    public function getElement()
+    {
         return $this->element;
     }
-
 }

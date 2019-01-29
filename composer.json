@@ -39,6 +39,6 @@
         "issues": "https://github.com/putyourlightson/craft-element-status-events/issues"
     },
     "extra": {
-        "bootstrap": "putyourlightson\\elementstatusevents\\ElementStatusChange"
+        "bootstrap": "putyourlightson\\elementstatusevents\\ElementStatusEvents"
     }
 }

@@ -7,12 +7,12 @@
     - `changedToPublished()`
     - `changedToUnpublished()`
 
-- Added Craft CLI command `element-status-change/scheduled` to take scheduled elements into account.
+- Added Craft CLI command `element-status-events/scheduled` to take scheduled elements into account.
 
 ### Changed
 - No need to bootstrap or register the extension.
 - Extension implements `BootstrapInterface`.
-- Event `ElementStatusChange::EVENT_STATUS_CHANGED`.
+- Event `ElementStatusEvents::EVENT_STATUS_CHANGED`.
 
 ## 1.3.0 - 2019-01-18
 ### Changed
