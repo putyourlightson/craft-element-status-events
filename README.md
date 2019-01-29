@@ -23,18 +23,18 @@ php craft element-status-change/scheduled
 
 ## Events
 
-Whenever an element’s status is changed, `ElementStatusChange::EVENT_STATUS_CHANGED` is fired. The `StatusChangeEvent` object provides information about the change.
+Whenever an element’s status is changed, `ElementStatusEvents::EVENT_STATUS_CHANGED` is fired. The `StatusChangeEvent` object provides information about the change.
 
 ```php
 
-use putyourlightson\elementstatusevents\ElementStatusChange;
+use putyourlightson\elementstatusevents\ElementStatusEvents;
 use putyourlightson\elementstatusevents\events\StatusChangeEvent;
 
 // ...
 
 Event::on(
-    ElementStatusChange::class, 
-    ElementStatusChange::EVENT_STATUS_CHANGED, 
+    ElementStatusEvents::class, 
+    ElementStatusEvents::EVENT_STATUS_CHANGED, 
     function(StatusChangeEvent $event) {
         $oldStatus   = $event->statusBeforeSave;
         $newStatus   = $event->element->getStatus();
@@ -49,6 +49,5 @@ Event::on(
 ## License
 
 This module is licensed for free under the MIT License.
-
 
 <small>Created by [PutYourLightsOn](https://putyourlightson.com/) in cooperation with [Oliver Stark](https://github.com/ostark)</small>
