@@ -1,6 +1,6 @@
 # Element Status Events Changelog
 
-## 2.0.0 - UNRELEASED
+## 2.0.0 - 2019-03-28
 ### Added
 - Added event object `StatusChangeEvent` with access to element via `getElement()` and check methods:
     - `changedTo(string $nameOfStatus)`
