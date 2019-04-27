@@ -50,6 +50,4 @@ Event::on(
 
 This extension is licensed for free under the MIT License.
 
----
-
 <small>Created by [PutYourLightsOn](https://putyourlightson.com/) in cooperation with [Oliver Stark](https://github.com/ostark)</small>
