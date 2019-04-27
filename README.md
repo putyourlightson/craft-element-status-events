@@ -1,4 +1,4 @@
-# Element Status Events Module for Craft CMS 3
+# Element Status Events for Craft CMS 3
 
 The Element Status Events extension provides events that are triggered whenever an element’s status changes. It is intended to be used a helper component for other Craft modules and plugins.
 
@@ -6,7 +6,7 @@ To get an understanding of how the module works, read the [Challenge #6 – The 
 
 ## Requirements
 
-This component requires Craft CMS 3.0.0 or later.
+This extension requires Craft CMS 3.0.0 or later.
 
 ## Usage
 
@@ -48,6 +48,8 @@ Event::on(
 
 ## License
 
-This module is licensed for free under the MIT License.
+This extension is licensed for free under the MIT License.
+
+---
 
 <small>Created by [PutYourLightsOn](https://putyourlightson.com/) in cooperation with [Oliver Stark](https://github.com/ostark)</small>
