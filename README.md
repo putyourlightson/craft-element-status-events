@@ -17,7 +17,7 @@ composer require putyourlightson/craft-element-status-events
     
 If you work with scheduled Entries (future published or expired), make sure to set up cron that calls:
 ```
-php craft element-status-change/scheduled
+php craft element-status-events/scheduled
 ```    
 
 
