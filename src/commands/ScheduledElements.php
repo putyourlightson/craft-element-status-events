@@ -149,12 +149,11 @@ class ScheduledElements extends Controller
 
         // Entries published within time frame
         $entries = (Entry::find()
-            ->where(['not', ['postDate' => null]])
-            ->andWhere(['between', 'postDate', $rangeStart, $rangeEnd])
+            ->where(['between', 'postDate', $rangeStart, $rangeEnd])
             ->withStructure(false)
             ->orderBy(null)
-            ->anyStatus()
-            ->enabledForSite(true))->all();
+            ->status('live')
+        )->all();
 
         // Exclude manually published entries (postDate ≅ dateUpdated)
         return array_filter($entries, function (Entry $item) {
@@ -174,12 +173,10 @@ class ScheduledElements extends Controller
         // TODO: Support Product and other Elements with expiryDate
 
         return (Entry::find()
-            ->where(['not', ['expiryDate' => null]])
-            ->andWhere(['between', 'expiryDate', $rangeStart, $rangeEnd])
+            ->where(['between', 'expiryDate', $rangeStart, $rangeEnd])
             ->withStructure(false)
             ->orderBy(null)
-            ->anyStatus()
-            ->enabledForSite(true)
+            ->status('expired')
         )->all();
     }
 }
