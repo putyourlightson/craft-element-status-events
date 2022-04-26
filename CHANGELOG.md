@@ -1,5 +1,8 @@
 # Element Status Events Changelog
 
+## 2.0.1 - 2022-04-26
+- Remove deprecated `enabledForSite()` element query parameter
+
 ## 2.0.0 - 2019-03-28
 ### Added
 - Added event object `StatusChangeEvent` with access to element via `getElement()` and check methods:
